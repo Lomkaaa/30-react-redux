@@ -2,13 +2,23 @@ import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addBook } from "../../redux/books/actionCreators";
+import { thunkFunction } from "../../redux/slices/filterSlice";
+
 import "./BookForm.css";
+
 import bookData from "../../data/books.json";
 
 export const BookForm = () => {
     const [title, setTitle] = useState("");
     const [author, setAuthor] = useState("");
     const dispatch = useDispatch();
+    //
+
+    //
+    const handleAddRandomBookViaAPI = () => {
+        dispatch(thunkFunction);
+    };
+    //
 
     //
     const handeleAddRandomBook = () => {
@@ -16,16 +26,19 @@ export const BookForm = () => {
         const randomBook = bookData[randomIndex];
         const randomBookId = {
             ...randomBook,
+            source: "случайный ввод",
             id: uuidv4(),
             isFavorite: false,
         };
         dispatch(addBook(randomBookId));
     };
-
+    //
+    //
     const handleSubmit = (e) => {
         e.preventDefault();
         if (title && author.length > 0) {
             const book = {
+                source: "добавил сам",
                 title: title,
                 author: author,
                 id: uuidv4(),
@@ -37,6 +50,9 @@ export const BookForm = () => {
             setTitle("");
         }
     };
+    //
+    //
+    //
     return (
         <div className="app-block book-form">
             <h2>Добавить новую книгу</h2>
@@ -61,6 +77,9 @@ export const BookForm = () => {
                     <button type="submit">Добавить книгу</button>
                     <button onClick={handeleAddRandomBook}>
                         Добавить случайно
+                    </button>
+                    <button onClick={handleAddRandomBookViaAPI} type="submit">
+                        Добавить через API
                     </button>
                 </div>
             </form>

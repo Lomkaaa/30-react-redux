@@ -35,7 +35,6 @@ export const BookForm = () => {
 
             setAuthor("");
             setTitle("");
-            console.log(book);
         }
     };
     return (

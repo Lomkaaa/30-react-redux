@@ -7,7 +7,7 @@ function App() {
     return (
         <div className="app">
             <header className="app-header">
-                <h1>Book library App</h1>
+                <h1>Библиотека книг</h1>
             </header>
             <main className="app-main">
                 <div className="app-left-column">

@@ -40,10 +40,10 @@ export const BookForm = () => {
     };
     return (
         <div className="app-block book-form">
-            <h2>Add a New Book</h2>
+            <h2>Добавить новую книгу</h2>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="title">Title:</label>
+                    <label htmlFor="title">Название:</label>
                     <input
                         type="text"
                         id="title"
@@ -52,15 +52,17 @@ export const BookForm = () => {
                     ></input>
                 </div>
                 <div>
-                    <label htmlFor="author">Author:</label>
+                    <label htmlFor="author">Автор:</label>
                     <input
                         type="text"
                         id="author"
                         value={author}
                         onChange={(e) => setAuthor(e.target.value)}
                     ></input>
-                    <button type="submit">Add Book</button>
-                    <button onClick={handeleAddRandomBook}> Add random</button>
+                    <button type="submit">Добавить книгу</button>
+                    <button onClick={handeleAddRandomBook}>
+                        Добавить случайно
+                    </button>
                 </div>
             </form>
         </div>

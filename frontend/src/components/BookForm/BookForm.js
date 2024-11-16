@@ -1,8 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addBook } from "../../redux/books/actionCreators";
-import { thunkFunction } from "../../redux/slices/filterSlice";
+import { addBook, fetchBook } from "../../redux/slices/booksSlice";
 
 import "./BookForm.css";
 
@@ -16,7 +15,7 @@ export const BookForm = () => {
 
     //
     const handleAddRandomBookViaAPI = () => {
-        dispatch(thunkFunction);
+        dispatch(fetchBook());
     };
     //
 

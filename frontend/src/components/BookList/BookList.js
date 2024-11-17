@@ -49,7 +49,27 @@ export const BookList = () => {
 
         return matchesTitle && matchesAuthor && matchesFavorite; //что бы работала одновремнно
     });
+    //
+    //
+    const highlightMatch = (text, filter) => {
+        if (!filter) {
+            return text;
+        }
 
+        const regex = new RegExp(`(${filter})`, "gi");
+        return text.split(regex).map((substring, i) => {
+            if (substring.toLowerCase() === filter.toLowerCase()) {
+                return (
+                    <span key={i} className="highlight">
+                        {substring}
+                    </span>
+                );
+            }
+            return substring;
+        });
+    };
+    //
+    //
     return (
         <div className="app-block book-list">
             <h2>Список книг</h2>
@@ -60,9 +80,12 @@ export const BookList = () => {
                     {filterBooks.map((book, i) => (
                         <li key={book.id}>
                             <div className="book-info">
-                                {++i}.{book.title}
+                                {++i}.{highlightMatch(book.title, titleFilter)}
                                 {" - "}
-                                <strong>{book.author}</strong> ({book.source})
+                                <strong>
+                                    {highlightMatch(book.author, authorFilter)}
+                                </strong>{" "}
+                                ({book.source})
                             </div>
                             <div className="book-actions">
                                 {book.isFavorite ? (

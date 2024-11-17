@@ -60,8 +60,8 @@ export const BookList = () => {
                     {filterBooks.map((book, i) => (
                         <li key={book.id}>
                             <div className="book-info">
-                                {++i}."{book.title}" для -
-                                <strong>{book.author}</strong>({book.source})
+                                {++i}.{book.title} для
+                                <strong>{book.author}</strong> ({book.source})
                             </div>
                             <div className="book-actions">
                                 {book.isFavorite ? (

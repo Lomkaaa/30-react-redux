@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addBook, fetchBook } from "../../redux/slices/booksSlice";
-
+import { setError } from "../../redux/slices/errorSlice";
 import "./BookForm.css";
 
 import bookData from "../../data/books.json";
@@ -15,7 +15,7 @@ export const BookForm = () => {
 
     //
     const handleAddRandomBookViaAPI = () => {
-        dispatch(fetchBook());
+        dispatch(fetchBook("http://localhost:4000/random-book"));
     };
     //
 
@@ -47,6 +47,8 @@ export const BookForm = () => {
 
             setAuthor("");
             setTitle("");
+        } else {
+            dispatch(setError("Поля ввода не должно быть пустое."));
         }
     };
     //
@@ -74,14 +76,12 @@ export const BookForm = () => {
                         onChange={(e) => setAuthor(e.target.value)}
                     ></input>
                     <button type="submit">Добавить книгу</button>
-                    <button onClick={handeleAddRandomBook}>
-                        Добавить случайно
-                    </button>
-                    <button onClick={handleAddRandomBookViaAPI} type="submit">
-                        Добавить через API
-                    </button>
                 </div>
             </form>
+            <button onClick={handeleAddRandomBook}>Добавить случайно</button>
+            <button onClick={handleAddRandomBookViaAPI} type="submit">
+                Добавить через API
+            </button>
         </div>
     );
 };

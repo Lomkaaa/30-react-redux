@@ -4,18 +4,27 @@ import { useDispatch } from "react-redux";
 import { addBook, fetchBook } from "../../redux/slices/booksSlice";
 import { setError } from "../../redux/slices/errorSlice";
 import "./BookForm.css";
+import { FaSpinner } from "react-icons/fa";
 
 import bookData from "../../data/books.json";
 
 export const BookForm = () => {
     const [title, setTitle] = useState("");
     const [author, setAuthor] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
     //
 
     //
-    const handleAddRandomBookViaAPI = () => {
-        dispatch(fetchBook("http://localhost:4000/random-book"));
+    const handleAddRandomBookViaAPI = async () => {
+        try {
+            setIsLoading(true);
+            await dispatch(
+                fetchBook("http://localhost:4000/random-book-delayed")
+            );
+        } finally {
+            setIsLoading(false);
+        }
     };
     //
 
@@ -48,7 +57,7 @@ export const BookForm = () => {
             setAuthor("");
             setTitle("");
         } else {
-            dispatch(setError("Поля ввода не должно быть пустое."));
+            dispatch(setError("Поле ввода не должно быть пустым."));
         }
     };
     //
@@ -79,8 +88,20 @@ export const BookForm = () => {
                 </div>
             </form>
             <button onClick={handeleAddRandomBook}>Добавить случайно</button>
-            <button onClick={handleAddRandomBookViaAPI} type="submit">
-                Добавить через API
+
+            <button
+                onClick={handleAddRandomBookViaAPI}
+                type="submit"
+                disabled={isLoading}
+            >
+                {isLoading ? (
+                    <>
+                        <span>загрузка...</span>
+                        <FaSpinner className="spinner" />
+                    </>
+                ) : (
+                    "взять из Интернета"
+                )}
             </button>
         </div>
     );
